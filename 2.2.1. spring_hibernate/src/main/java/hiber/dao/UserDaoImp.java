@@ -13,27 +13,27 @@ import java.util.List;
 public class UserDaoImp implements UserDao {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    private SessionFactory session;
 
     @Override
     @Transactional
     public void add(User user) {
-        sessionFactory.getCurrentSession().save(user);
+        session.getCurrentSession().save(user);
     }
 
     @Override
     @Transactional
     @SuppressWarnings("unchecked")
     public List<User> listUsers() {
-        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
+        TypedQuery<User> query = session.getCurrentSession().createQuery("from User");
         return query.getResultList();
     }
 
     @Override
     @Transactional
     public List<User> getUserByCar(String model, int series) {
-        TypedQuery<User> query = sessionFactory.getCurrentSession()
-                .createQuery("FROM User AS u WHERE id = (SELECT id from Car WHERE model= :model AND series = :series)");
+        TypedQuery<User> query = session.getCurrentSession()
+                .createQuery("from User as u where id = (select id from Car where model= :model and series = :series)");
         query.setParameter("model", model).setParameter("series", series);
         return query.getResultList();
     }
