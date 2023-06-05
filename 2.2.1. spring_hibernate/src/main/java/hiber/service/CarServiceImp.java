@@ -15,13 +15,11 @@ public class CarServiceImp implements CarService {
     private CarDao carDao;
 
     @Override
-    @Transactional
     public void add(Car car) {
         carDao.add(car);
     }
 
     @Override
-    @Transactional
     public List<Car> listCars() {
         return carDao.listCars();
     }
